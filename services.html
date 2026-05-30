@@ -8,8 +8,9 @@
   <meta name="keywords" content="Edu India Foundation services, NEET counselling, JEE guidance, career mapping, study abroad, MBA admission" />
   <meta name="author" content="Edu India Foundation" />
 
-  <link rel="icon" href="favicon.png" type="image/jpeg" />
-  <link rel="stylesheet" href="services.css?v=13.0" />
+  <link rel="icon" href="favicon.png" type="image/png" />
+  <link rel="stylesheet" href="style.css?v=2.0" />
+  <link rel="stylesheet" href="services.css?v=2.0" />
 </head>
 <body>
   <!-- LOADER -->
@@ -23,7 +24,7 @@
       <div class="nav-logo">
         <a href="index.html">Edu India Foundation</a>
       </div>
-      <div class="burger" id="burger">&#9776;</div>
+      <button class="burger" id="burger" aria-label="Toggle navigation menu">&#9776;</button>
       <ul id="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a class="active" href="services.html">Services</a></li>
@@ -35,65 +36,141 @@
 
   <!-- PAGE HERO -->
   <section class="page-hero">
-    <div class="page-hero-content">
-      <h1>Our Counselling & Career Services</h1>
+    <div class="blob-container">
+      <div class="floating-blob floating-blob-right" style="opacity: 0.35;"></div>
+    </div>
+    <div class="page-hero-content reveal-on-scroll reveal-fade">
+      <h1 class="split-text-target">Our Counselling & Career Services</h1>
       <p>Comprehensive guidance from school to post-graduation, in India & abroad.</p>
     </div>
   </section>
 
   <!-- SERVICES GRID -->
-  <section class="service-section">
+  <section class="service-section reveal-on-scroll">
+    <div class="blob-container">
+      <div class="floating-blob floating-blob-left" style="opacity: 0.4;"></div>
+    </div>
     <div class="service-wrapper">
-      <h2 class="service-heading">What We Offer</h2>
-      <div class="service-grid">
-        <div class="service-card"><h3>NEET / Medical</h3><p>Expert guidance for medical admissions and counselling.</p></div>
-        <div class="service-card"><h3>Engineering & JEE</h3><p>End-to-end counselling for top engineering colleges.</p></div>
-        <div class="service-card"><h3>Commerce & Management</h3><p>BBA, MBA, and commerce-related admissions simplified.</p></div>
-        <div class="service-card"><h3>Arts & Design</h3><p>Guidance for creative courses like NIFT, NID, Fine Arts.</p></div>
-        <div class="service-card"><h3>Study Abroad</h3><p>Global university admissions, SOP writing, and visa guidance.</p></div>
-        <div class="service-card"><h3>Career Mapping</h3><p>Interest-based career mapping and psychometric tests.</p></div>
+      <h2 class="service-heading shimmer-heading">What We Offer</h2>
+      <div class="service-grid stagger-container">
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>NEET / Medical</h3>
+            <p>Expert guidance for medical admissions and counselling.</p>
+          </div>
+        </div>
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>Engineering & JEE</h3>
+            <p>End-to-end counselling for top engineering colleges.</p>
+          </div>
+        </div>
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>Commerce & Management</h3>
+            <p>BBA, MBA, and commerce-related admissions simplified.</p>
+          </div>
+        </div>
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>Arts & Design</h3>
+            <p>Guidance for creative courses like NIFT, NID, Fine Arts.</p>
+          </div>
+        </div>
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>Study Abroad</h3>
+            <p>Global university admissions, SOP writing, and visa guidance.</p>
+          </div>
+        </div>
+        
+        <div class="service-card tilt-card">
+          <div class="tilt-card-inner">
+            <h3>Career Mapping</h3>
+            <p>Interest-based career mapping and psychometric tests.</p>
+          </div>
+        </div>
+        
       </div>
-      <a href="contact.html" class="btn-contact">Contact a Counsellor</a>
+      <div class="reveal-on-scroll reveal-scale" style="margin-top: 50px;">
+        <a href="contact.html" class="btn-contact pulse-ring">Contact a Counsellor</a>
+      </div>
     </div>
   </section>
 
   <!-- YOUTUBE VIDEOS -->
-  <section class="videos fade-section">
+  <section class="videos reveal-on-scroll">
     <div class="videos-wrapper">
-      <div class="video-grid">
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/bmmspzmp3Cg" title="Edu India Foundation Video 1" frameborder="0" allowfullscreen></iframe>
+      <h2 class="videos-heading shimmer-heading">Featured Insights</h2>
+      <div class="video-grid stagger-container">
+        
+        <div class="video-embed-card tilt-card">
+          <div class="tilt-card-inner">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/bmmspzmp3Cg" title="Edu India Foundation Video 1" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/EJbYh-2wqPM" title="Edu India Foundation Video 2" frameborder="0" allowfullscreen></iframe>
+        
+        <div class="video-embed-card tilt-card">
+          <div class="tilt-card-inner">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/EJbYh-2wqPM" title="Edu India Foundation Video 2" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
-        <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/8ZT3axlPwZo" title="Edu India Foundation Video 3" frameborder="0" allowfullscreen></iframe>
+        
+        <div class="video-embed-card tilt-card">
+          <div class="tilt-card-inner">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/8ZT3axlPwZo" title="Edu India Foundation Video 3" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
-         <div class="video-embed">
-          <iframe src="https://www.youtube.com/embed/MRMoBNuhURE" title="Edu India Foundation Video 3" frameborder="0" allowfullscreen></iframe>
+        
+        <div class="video-embed-card tilt-card">
+          <div class="tilt-card-inner">
+            <div class="video-embed">
+              <iframe src="https://www.youtube.com/embed/MRMoBNuhURE" title="Edu India Foundation Video 4" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
         </div>
+        
       </div>
     </div>
   </section>
 
-
-
   <!-- CTA -->
-  <section class="service-cta fade-section">
+  <section class="service-cta reveal-on-scroll reveal-scale">
     <h2>Confused About Your Career?</h2>
     <p>Book a free consultation with our experts today.</p>
-    <a href="contact.html" class="btn-contact">Book Free Call</a>
+    <a href="contact.html" class="btn-contact pulse-ring">Book Free Call</a>
   </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <p>&copy; 2025 Edu India Foundation. All rights reserved.</p>
+    <p>&copy; 2026 Edu India Foundation. All rights reserved.</p>
   </footer>
 
   <!-- Back to Top -->
   <button id="backToTop" aria-label="Back to top">↑</button>
 
-  <script src="services.js?v=13.0"></script>
+  <script src="script.js?v=2.0"></script>
+  <script>
+    // Page-specific Back to Top logic driven cleanly
+    const backBtn = document.getElementById('backToTop');
+    if (backBtn) {
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+      });
+      backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    }
+  </script>
 </body>
 </html>

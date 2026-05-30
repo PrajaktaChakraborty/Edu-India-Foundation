@@ -1,87 +1,226 @@
-/* ===============================
-   Loader Animation
-=============================== */
+/* =======================================================
+   EDU INDIA FOUNDATION - SAAS SCROLL ANIMATIONS ENGINE
+   ======================================================= */
+
+// LOADER & INITIALIZATION
 window.addEventListener('load', () => {
   document.body.classList.add('loaded');
+  initializeAllAnimations();
 });
 
-/* ===============================
-   Burger Menu Toggle
-=============================== */
-const burger = document.getElementById('burger');
-const navLinks = document.getElementById('nav-links');
-if (burger && navLinks) {
-  burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+function initializeAllAnimations() {
+  initScrollProgress();
+  initGlassNav();
+  initSplitText();
+  initScrollObserver();
+  init3DTiltDelegated();
+  initStatsObserver();
 }
 
-/* ===============================
-   Navigation Shadow on Scroll
-=============================== */
-const mainNav = document.querySelector('nav');
-function updateNavShadow() {
-  if (!mainNav) return;
-  if (window.scrollY > 10) {
-    mainNav.classList.add('scrolled');
-  } else {
-    mainNav.classList.remove('scrolled');
+/* =======================================================
+   1. DYNAMIC SCROLL PROGRESS BAR
+   ======================================================= */
+function initScrollProgress() {
+  if (!document.querySelector('.scroll-progress')) {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.prepend(progressBar);
   }
-}
-window.addEventListener('scroll', updateNavShadow);
-window.addEventListener('load', updateNavShadow);
-updateNavShadow();
 
-/* ===============================
-   Scroll Reveal for Sections
-=============================== */
-const sections = document.querySelectorAll('section');
-function revealSections() {
-  const triggerBottom = window.innerHeight * 0.85;
-  sections.forEach(section => {
-    const rect = section.getBoundingClientRect();
-    if (rect.top < triggerBottom && rect.bottom > 0) {
-      section.classList.add('visible');
-    } else {
-      section.classList.remove('visible');
+  const progressBar = document.querySelector('.scroll-progress');
+  window.addEventListener('scroll', () => {
+    const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = scrolled + '%';
     }
   });
 }
-window.addEventListener('scroll', revealSections);
-revealSections();
 
-/* ===============================
-   Count-Up Animation (Stats)
-=============================== */
-const counters = document.querySelectorAll('.stats .count');
-let countersStarted = false;
+/* =======================================================
+   2. GLASSMORPHIC NAVIGATION SCROLL WATCHER
+   ======================================================= */
+function initGlassNav() {
+  const mainNav = document.querySelector('nav');
+  function updateNav() {
+    if (!mainNav) return;
+    if (window.scrollY > 20) {
+      mainNav.classList.add('scrolled');
+    } else {
+      mainNav.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', updateNav);
+  updateNav();
+}
 
-function startCountersIfVisible() {
-  if (countersStarted || counters.length === 0) return;
+/* =======================================================
+   3. WORD-BY-WORD TEXT SPLIT FUNCTION
+   ======================================================= */
+function initSplitText() {
+  const splitTargets = document.querySelectorAll('.split-text-target');
+  
+  splitTargets.forEach(target => {
+    const originalText = target.textContent.trim();
+    const words = originalText.split(/\s+/);
+    target.innerHTML = ''; // Clear original text
+    
+    words.forEach((word, index) => {
+      const container = document.createElement('span');
+      container.className = 'split-word-container';
+      
+      const span = document.createElement('span');
+      span.className = 'split-word';
+      span.textContent = word;
+      span.style.transitionDelay = `${index * 0.05}s`;
+      
+      container.appendChild(span);
+      target.appendChild(container);
+      
+      if (index < words.length - 1) {
+        target.appendChild(document.createTextNode(' '));
+      }
+    });
+  });
+}
+
+/* =======================================================
+   4. SCROLL INTERSECTION OBSERVER FOR TRANSITIONS
+   ======================================================= */
+function initScrollObserver() {
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+  
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animated');
+        
+        if (entry.target.classList.contains('stagger-container')) {
+          const children = entry.target.children;
+          Array.from(children).forEach((child, index) => {
+            if (!child.style.transitionDelay) {
+              child.style.transitionDelay = `${index * 0.08}s`;
+            }
+            child.classList.add('animated');
+            // If the child is a reveal-on-scroll, trigger its entrance directly
+            child.classList.add('visible');
+          });
+        }
+        
+        const splitWords = entry.target.querySelectorAll('.split-word');
+        if (splitWords.length > 0) {
+          splitWords.forEach(word => word.classList.add('revealed'));
+        }
+        
+        // Dynamic nested cards trigger
+        const revealChildren = entry.target.querySelectorAll('.reveal-on-scroll');
+        revealChildren.forEach(child => child.classList.add('animated'));
+
+        obs.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  // Setup standard elements
+  const revealElements = document.querySelectorAll('.reveal-on-scroll');
+  revealElements.forEach(el => observer.observe(el));
+  
+  const staggerContainers = document.querySelectorAll('.stagger-container');
+  staggerContainers.forEach(container => observer.observe(container));
+  
+  // Create helper to re-observe dynamic templates if needed
+  window.observeAnimatedElements = function() {
+    const dynamicElements = document.querySelectorAll('.reveal-on-scroll:not(.animated)');
+    dynamicElements.forEach(el => observer.observe(el));
+  };
+}
+
+/* =======================================================
+   5. 3D PERSPECTIVE CARD TILT MOUSE TRACKER (EVENT DELEGATION)
+   ======================================================= */
+function init3DTiltDelegated() {
+  document.addEventListener('mousemove', e => {
+    const card = e.target.closest('.tilt-card');
+    if (!card) return;
+    const inner = card.querySelector('.tilt-card-inner');
+    if (!inner) return;
+    
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const xc = rect.width / 2;
+    const yc = rect.height / 2;
+    
+    const rotY = ((x - xc) / xc) * 8;
+    const rotX = -((y - yc) / yc) * 8;
+    
+    inner.style.setProperty('--rx', rotX.toFixed(2));
+    inner.style.setProperty('--ry', rotY.toFixed(2));
+  });
+  
+  document.addEventListener('mouseout', e => {
+    const card = e.target.closest('.tilt-card');
+    if (!card) return;
+    const inner = card.querySelector('.tilt-card-inner');
+    if (!inner) return;
+    
+    // Smooth reset when leaving card
+    inner.style.setProperty('--rx', '0');
+    inner.style.setProperty('--ry', '0');
+  });
+}
+
+/* =======================================================
+   6. COUNTER ANIMATION WITH INTERSECTION OBSERVER
+   ======================================================= */
+function initStatsObserver() {
+  const counters = document.querySelectorAll('.stats .count');
+  if (counters.length === 0) return;
+  
   const statsSection = document.querySelector('.stats');
   if (!statsSection) return;
-  const rect = statsSection.getBoundingClientRect();
-  const triggerBottom = window.innerHeight * 0.85;
-  if (rect.top < triggerBottom && rect.bottom > 0) {
-    countersStarted = true;
-    counters.forEach(el => animateCount(el));
-  }
+  
+  let countersStarted = false;
+  
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !countersStarted) {
+        countersStarted = true;
+        counters.forEach(el => animateCount(el));
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+  
+  observer.observe(statsSection);
 }
 
 function animateCount(el) {
   const target = parseInt(el.getAttribute('data-target'), 10) || 0;
   const suffix = el.getAttribute('data-suffix') || '';
-  const duration = 1500; // ms
+  const duration = 1800; // ms
   const start = 1;
   const startTime = performance.now();
 
   function formatNumber(num) {
-    return num.toLocaleString('en-IN'); // comma grouping
+    return num.toLocaleString('en-IN');
   }
 
   function update(now) {
     const elapsed = now - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const value = Math.floor(start + (target - start) * progress);
+    
+    const easeOutQuad = progress * (2 - progress);
+    const value = Math.floor(start + (target - start) * easeOutQuad);
+    
     el.textContent = formatNumber(value) + suffix;
+    
     if (progress < 1) {
       requestAnimationFrame(update);
     } else {
@@ -91,37 +230,40 @@ function animateCount(el) {
   requestAnimationFrame(update);
 }
 
-window.addEventListener('scroll', startCountersIfVisible);
-window.addEventListener('load', startCountersIfVisible);
+/* =======================================================
+   7. BURGER MENU TOGGLE
+   ======================================================= */
+const burger = document.getElementById('burger');
+const navLinks = document.getElementById('nav-links');
+if (burger && navLinks) {
+  burger.addEventListener('click', () => navLinks.classList.toggle('active'));
+}
 
-/* ===============================
-   WhatsApp Enquiry Form Submission
-=============================== */
+/* =======================================================
+   8. WHATSAPP ENQUIRY FORM SUBMISSION (PRESERVED)
+   ======================================================= */
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.querySelector('.contact-form');
   if (!form) return;
 
   form.addEventListener('submit', e => {
-    e.preventDefault(); // stop normal submit
+    e.preventDefault();
 
     const name  = form.querySelector('[name="name"]').value.trim();
     const email = form.querySelector('[name="email"]').value.trim();
     const phone = form.querySelector('[name="phone"]').value.trim();
 
-    // Build the WhatsApp message
     const msg = `New enquiry from Edu India Foundation website:
 Name: ${name}
 Email: ${email}
 Phone: ${phone}`;
 
     const encodedMsg = encodeURIComponent(msg);
-    const dest = '917002086090'; // +91 70020 86090
+    const dest = '917002086090';
 
-    // Open WhatsApp
     const waURL = `https://wa.me/${dest}?text=${encodedMsg}`;
-    window.open(waURL, '_blank'); // open in new tab (or change to location.href = waURL)
+    window.open(waURL, '_blank');
 
-    // Optional: clear the form
     form.reset();
   });
 });

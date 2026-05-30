@@ -22,11 +22,11 @@
   <meta name="twitter:image" content="https://eduindiafoundation.com/images/banner.jpg" />
 
   <link rel="canonical" href="https://eduindiafoundation.com/colleges.html" />
-  <link rel="icon" href="favicon.png" type="image/jpeg" />
+  <link rel="icon" href="favicon.png" type="image/png" />
 
   <!-- Styles -->
-  <link rel="stylesheet" href="style.css?v=13.0" />
-  <link rel="stylesheet" href="colleges.css?v=13.0" />
+  <link rel="stylesheet" href="style.css?v=2.0" />
+  <link rel="stylesheet" href="colleges.css?v=2.0" />
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -73,7 +73,7 @@
       <ul id="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="services.html">Services</a></li>
-        <li><a class="active" href="colleges.html">Medical Colleges and Fees</a></li>
+        <li><a class="active" href="colleges.html">Medical Colleges & Fees</a></li>
         <li><a href="contact.html">Contact Us</a></li>
       </ul>
     </div>
@@ -81,14 +81,20 @@
 
   <!-- HERO -->
   <section class="page-hero colleges-hero">
-    <div class="page-hero-content">
-      <h1>Medical Colleges & Fees (Private MBBS)</h1>
+    <div class="blob-container">
+      <div class="floating-blob floating-blob-right" style="opacity: 0.3;"></div>
+    </div>
+    <div class="page-hero-content reveal-on-scroll reveal-fade">
+      <h1 class="split-text-target">Medical Colleges & Fees (Private MBBS)</h1>
       <p>Use filters below to find colleges by state, budget, and location. For full counselling support, connect with us.</p>
     </div>
   </section>
 
   <!-- FILTER PANEL -->
-  <section class="college-filters">
+  <section class="college-filters reveal-on-scroll reveal-scale">
+    <div class="blob-container">
+      <div class="floating-blob floating-blob-left" style="opacity: 0.3; top: 10%;"></div>
+    </div>
     <div class="filters-wrapper">
       <div class="filter-field">
         <label for="searchInput">Search</label>
@@ -131,44 +137,62 @@
       </div>
 
       <div class="filter-buttons">
-        <button id="applyFilters" class="btn-contact">Apply</button>
+        <button id="applyFilters" class="btn-contact pulse-ring">Apply</button>
         <button id="resetFilters" class="btn-secondary">Reset</button>
       </div>
     </div>
 
-    <div class="results-count" id="resultsCount">Showing 0 colleges.</div>
+    <div class="results-count shimmer-heading" id="resultsCount">Showing 0 colleges.</div>
     <div class="fee-note">Fees are indicative; may change each admission year. Contact us for latest official figures.</div>
   </section>
 
   <!-- RESULTS -->
   <section class="college-results" id="college-list">
-    <div id="collegesGrid" class="colleges-grid">
+    <div id="collegesGrid" class="colleges-grid stagger-container">
       <!-- cards injected by JS -->
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="college-cta">
+  <section class="college-cta reveal-on-scroll reveal-scale">
     <h2>Need Help Choosing the Right Medical College?</h2>
     <p>Our counsellors guide you through state quotas, NRI seats, documentation, and admission deadlines.</p>
-    <a href="contact.html" class="btn-contact">Get Counselling Support</a>
+    <a href="contact.html" class="btn-contact pulse-ring">Get Counselling Support</a>
   </section>
 
   <!-- FOOTER -->
   <footer class="site-footer">
-    <p>&copy; 2025 Edu India Foundation. All rights reserved.</p>
+    <p>&copy; 2026 Edu India Foundation. All rights reserved.</p>
   </footer>
 
   <button id="backToTop" aria-label="Back to top">↑</button>
 
   <!-- SCRIPTS -->
-  <script src="script.js?v=13.0" defer></script>
-  <script src="colleges.js?v=13.0" defer></script>
+  <script src="script.js?v=2.0" defer></script>
+  <script src="colleges.js?v=2.0" defer></script>
   <script>
-    // Smooth scroll to college cards on Apply button click
-    document.getElementById('applyFilters').addEventListener('click', function () {
-      const target = document.getElementById('college-list');
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    // Page-specific behaviors and Apply smooth scrolls
+    document.addEventListener('DOMContentLoaded', () => {
+      const applyBtn = document.getElementById('applyFilters');
+      if (applyBtn) {
+        applyBtn.addEventListener('click', function () {
+          const target = document.getElementById('college-list');
+          if (target) {
+            setTimeout(() => {
+              target.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }
+        });
+      }
+      
+      const backBtn = document.getElementById('backToTop');
+      if (backBtn) {
+        window.addEventListener('scroll', () => {
+          if (window.scrollY > 300) backBtn.classList.add('show');
+          else backBtn.classList.remove('show');
+        });
+        backBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      }
     });
   </script>
 </body>

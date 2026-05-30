@@ -1,31 +1,23 @@
-/* Contact Page Redesign - Canva & Indie-Magazine overrides */
-
-/* Animating Colorful Fluid Mesh Backdrop */
-@keyframes fluidMesh {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
+/* =======================================================
+   EDU INDIA CONTACT CSS - SAAS INTERACTION OVERRIDES
+   ======================================================= */
 
 body {
-  /* Light, warm, premium fluid mesh gradient (bright, clean, and never dark) */
-  background: linear-gradient(-45deg, #ffea79 0%, #c49eff 25%, #fff5cc 50%, #8eeeff 75%, #ffb6f3 100%);
-  background-size: 400% 400%;
-  animation: fluidMesh 15s ease infinite;
-  background-attachment: fixed;
+  background-color: var(--cream);
   color: var(--charcoal);
   font-family: var(--font-body);
 }
 
 /* Hero Section */
 .contact-hero {
-  background: linear-gradient(135deg, rgba(21, 21, 21, 0.95), rgba(179, 147, 235, 0.65)),
+  background: linear-gradient(135deg, rgba(21, 21, 21, 0.95), rgba(195, 178, 224, 0.7)),
               url('images/medicalhero.jpg') center/cover no-repeat;
-  padding: 120px 20px;
+  padding: 130px 20px;
   text-align: center;
   color: var(--white);
-  border-bottom: 4px solid var(--accent-yellow);
-  animation: fadeIn 1s ease-in-out;
+  border-bottom: var(--border-main);
+  position: relative;
+  overflow: hidden;
 }
 .contact-hero h1 {
   font-family: var(--font-display);
@@ -33,7 +25,7 @@ body {
   margin-bottom: 16px;
   font-weight: normal;
   letter-spacing: 2px;
-  text-shadow: 2px 2px 0px var(--charcoal);
+  text-shadow: 3px 3px 0px var(--charcoal);
 }
 .contact-hero p {
   font-family: var(--font-body);
@@ -43,59 +35,45 @@ body {
   margin: 0 auto;
 }
 
-/* Locations */
+/* Locations Grid */
 .contact-locations {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 40px;
-  padding: 90px 20px;
+  padding: 100px 20px;
   max-width: 1200px;
   margin: auto;
+  position: relative;
 }
 
 .contact-card {
-  border-radius: 32px; /* iOS smooth rounded corner */
-  border: 2.5px solid rgba(255, 255, 255, 0.98); /* Sharp solid-like white edge */
-  padding: 32px 24px;
-  box-shadow: 0 16px 40px rgba(156, 92, 242, 0.08), inset 0 2px 4px rgba(255, 255, 255, 0.95), inset 0 -2px 4px rgba(0, 0, 0, 0.03);
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.5s ease;
-  animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  background: var(--white);
+  border-radius: 0;
+  border: var(--border-main);
+  box-shadow: var(--shadow-flat);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(25px) saturate(140%);
-  -webkit-backdrop-filter: blur(25px) saturate(140%);
+}
+.contact-card .tilt-card-inner {
+  padding: 35px 28px;
+  background: var(--white);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 .contact-card:hover {
-  transform: translateY(-12px) scale(1.02);
+  transform: translate(-4px, -4px);
+  box-shadow: var(--shadow-flat-hover);
 }
-
-/* Alternating translucent glass panels with specific light leak glow drops */
-.contact-card:nth-child(1) {
-  background-color: rgba(230, 205, 255, 0.85); /* Saturated lilac glass */
-}
-.contact-card:nth-child(1):hover {
-  box-shadow: 0 30px 60px rgba(179, 147, 235, 0.55), 0 0 30px rgba(179, 147, 235, 0.35);
-  border-color: rgba(179, 147, 235, 0.95);
-}
-
-.contact-card:nth-child(2) {
-  background-color: rgba(255, 255, 255, 0.85); /* High contrast white glass */
-}
-.contact-card:nth-child(2):hover {
-  box-shadow: 0 30px 60px rgba(255, 255, 255, 0.55), 0 0 30px rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 1);
-}
-
 .contact-card h2 {
   font-family: var(--font-display);
+  color: var(--charcoal);
   font-size: 1.8rem;
-  background: linear-gradient(135deg, var(--charcoal) 30%, #5d4294 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin-bottom: 16px;
   font-weight: normal;
-  border-bottom: 2px solid rgba(179, 147, 235, 0.2);
-  padding-bottom: 8px;
+  border-bottom: 2px solid var(--charcoal);
+  padding-bottom: 10px;
   letter-spacing: 0.5px;
 }
 .contact-card p {
@@ -110,107 +88,67 @@ body {
   transition: color var(--transition-fast);
 }
 .contact-card p a:hover {
-  color: var(--lavender);
+  color: #6c54a9;
 }
 
-/* WhatsApp Button - Premium Emerald glass with 3D Tactile reflection */
-@keyframes glassShimmer {
-  0% { left: -70%; }
-  30% { left: 150%; }
-  100% { left: 150%; }
-}
-
+/* WhatsApp Buttons in Location Cards */
 .contact-card .whatsapp-btn {
-  position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  background: rgba(90, 235, 130, 0.88); /* Saturated emerald green glass */
-  backdrop-filter: blur(20px) saturate(135%);
-  -webkit-backdrop-filter: blur(20px) saturate(135%);
-  color: #1a0f2e; /* Absolute deepest contrast text */
-  font-weight: 700;
+  gap: 10px;
+  background-color: var(--accent-yellow);
+  color: var(--charcoal);
   font-family: var(--font-display);
-  font-size: 1.15rem;
-  letter-spacing: 1px;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
   text-transform: uppercase;
   text-decoration: none;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: 50px;
-  border: 2.5px solid rgba(255, 255, 255, 0.98);
-  box-shadow: 0 10px 25px rgba(156, 92, 242, 0.15), 
-              inset 0 4px 6px rgba(255, 255, 255, 0.95), 
-              inset 0 -4px 6px rgba(0, 0, 0, 0.05),
-              inset 0 1px 0 rgba(255, 255, 255, 0.98);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
-  margin: 6px 0;
+  border: var(--border-main);
+  box-shadow: 3px 3px 0px var(--charcoal);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  margin: 10px 0;
   width: 100%;
 }
-.contact-card .whatsapp-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -70%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
-  transform: skewX(-25deg);
-  animation: glassShimmer 5s infinite ease-in-out;
-}
 .contact-card .whatsapp-btn img {
-  width: 22px;
-  height: 22px;
-  position: relative;
-  z-index: 2;
-}
-.contact-card .whatsapp-btn span {
-  position: relative;
-  z-index: 2;
+  width: 24px;
+  height: 24px;
 }
 .contact-card .whatsapp-btn:hover {
-  background: rgba(90, 235, 130, 0.98);
-  transform: translateY(-4px) scale(1.03);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 15px 35px rgba(34, 180, 72, 0.8), 
-              0 0 25px rgba(34, 180, 72, 0.5),
-              inset 0 4px 6px rgba(255, 255, 255, 0.98), 
-              inset 0 -4px 6px rgba(0, 0, 0, 0.05);
+  background-color: var(--accent-yellow);
+  transform: translate(-3px, -3px);
+  box-shadow: 5px 5px 0px var(--charcoal);
 }
 
-/* Map Container Frame */
+/* Map Containers */
 .map-container {
-  margin-top: 20px;
-  border-radius: 24px;
-  border: 2.5px solid rgba(255, 255, 255, 0.98); /* Sharp solid-like white outline */
+  margin-top: 25px;
+  border-radius: 0;
+  border: var(--border-main);
   overflow: hidden;
-  box-shadow: 0 12px 32px rgba(156, 92, 242, 0.18);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.map-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(156, 92, 242, 0.28);
+  box-shadow: 3px 3px 0px var(--charcoal);
+  position: relative;
 }
 .map-container iframe {
   display: block;
 }
 
-/* Contact Form Overrides (in contact.html) */
+/* Contact Form Section */
 .contact-form-section {
-  padding: 90px 20px;
+  padding: 100px 20px;
   text-align: center;
-  background: rgba(235, 231, 243, 0.3);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--lavender-light);
   border-top: var(--border-main);
   border-bottom: var(--border-main);
+  position: relative;
 }
 .contact-form-section h2 {
   font-family: var(--font-display);
   font-size: clamp(2.4rem, 5vw, 3.5rem);
   color: var(--charcoal);
-  margin-bottom: 40px;
+  margin-bottom: 50px;
   font-weight: normal;
 }
 .contact-form {
@@ -218,92 +156,81 @@ body {
   margin: auto;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 .contact-form input,
-.contact-form textarea {
-  padding: 14px 22px;
+.contact-form textarea,
+.contact-form button {
+  padding: 15px 22px;
   font-size: 1rem;
   border-radius: 50px;
-  border: 2px solid rgba(255, 255, 255, 0.98);
+  border: var(--border-main);
   font-family: var(--font-body);
-  background: rgba(255, 255, 255, 0.88); /* Saturated frosted inputs */
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
+  background: var(--white);
   color: var(--charcoal);
   outline: none;
-  box-shadow: inset 0 2px 2px rgba(255, 255, 255, 0.35);
-  transition: box-shadow 0.4s ease, background 0.4s ease, border-color 0.4s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
 }
 .contact-form textarea {
   border-radius: 24px;
   resize: vertical;
-  min-height: 120px;
+  min-height: 130px;
 }
 .contact-form input:focus,
 .contact-form textarea:focus {
-  background: rgba(255, 255, 255, 0.98);
-  border-color: rgba(179, 147, 235, 0.75);
-  box-shadow: 0 0 0 4px rgba(179, 147, 235, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 15px rgba(249, 240, 149, 0.6);
+  border-color: var(--accent-yellow);
+  transform: scale(1.01);
 }
 .contact-form button {
-  position: relative;
-  overflow: hidden;
-  display: inline-flex;
+  background: var(--accent-yellow);
+  color: var(--charcoal);
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 4px 4px 0px var(--charcoal);
+  border: var(--border-main);
+  padding: 14px 28px;
+}
+
+/* Back to Top Button */
+#backToTop {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 50px;
+  height: 50px;
+  border: var(--border-main);
+  border-radius: 50%;
+  background: var(--accent-yellow);
+  color: var(--charcoal);
+  font-size: 1.4rem;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, transform 0.3s, visibility 0.3s;
+  box-shadow: 3px 3px 0px var(--charcoal);
+  z-index: 999;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 228, 77, 0.88); /* Saturated Gold frosted glass */
-  backdrop-filter: blur(20px) saturate(135%);
-  -webkit-backdrop-filter: blur(20px) saturate(135%);
-  border: 2.5px solid rgba(255, 255, 255, 0.98); /* Polished glossy white border */
-  color: #1a0f2e; /* Absolute deepest contrast text */
-  font-weight: 700;
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  cursor: pointer;
-  box-shadow: 0 10px 25px rgba(156, 92, 242, 0.22), 
-              inset 0 4px 6px rgba(255, 255, 255, 0.95), 
-              inset 0 -4px 6px rgba(0, 0, 0, 0.05),
-              inset 0 1px 0 rgba(255, 255, 255, 0.98);
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);
 }
-.contact-form button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -70%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85), transparent);
-  transform: skewX(-25deg);
-  animation: glassShimmer 5s infinite ease-in-out;
+#backToTop:hover {
+  transform: translate(-2px, -2px) rotate(360deg);
+  box-shadow: 5px 5px 0px var(--charcoal);
 }
-.contact-form button:hover {
-  background: rgba(255, 228, 77, 0.98); 
-  transform: translateY(-4px) scale(1.04);
-  border-color: rgba(255, 255, 255, 1);
-  box-shadow: 0 15px 35px rgba(255, 215, 0, 0.8), 
-              0 0 25px rgba(255, 215, 0, 0.5),
-              inset 0 4px 6px rgba(255, 255, 255, 0.98), 
-              inset 0 -4px 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+#backToTop.show { 
+  opacity: 1; 
+  visibility: visible; 
 }
 
 /* Responsive */
 @media (max-width: 768px) {
-  .contact-hero { padding: 90px 16px; }
+  .contact-hero { padding: 100px 16px; }
   .contact-locations { padding: 60px 16px; }
-  .contact-card { padding: 24px 20px; }
+  .contact-card { padding: 0; }
+  .contact-form button { width: 100%; text-align: center; }
 }

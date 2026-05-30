@@ -251,24 +251,28 @@ function sortRows(rows, mode) {
 /* ====== RENDER ====== */
 function renderRows(rows) {
   gridEl.innerHTML = '';
-  rows.forEach(c => {
+  rows.forEach((c, index) => {
     const feeNum = parseFee(c.fees);
     const feeClassName = feeClass(feeNum);
     const feeText = isNaN(feeNum) ? c.fees : `₹${formatINR(feeNum)}`;
     const loc = c.location ? c.location : '—';
     const card = document.createElement('div');
-    card.className = 'college-card';
+    card.className = 'college-card tilt-card reveal-on-scroll';
+    // Cascading entrance stagger delay (limit to first 15 rows for top performance)
+    card.style.transitionDelay = `${(index % 15) * 0.04}s`;
     card.innerHTML = `
-      <h2>${c.name}</h2>
-      <p><strong>Location:</strong> ${loc}</p>
-      <p><strong>State:</strong> ${c.state}</p>
-      <p><strong>Annual Fees:</strong> <span class="${feeClassName}">${feeText}</span></p>
+      <div class="tilt-card-inner">
+        <h2>${c.name}</h2>
+        <p><strong>Location:</strong> ${loc}</p>
+        <p><strong>State:</strong> ${c.state}</p>
+        <p><strong>Annual Fees:</strong> <span class="${feeClassName}">${feeText}</span></p>
+      </div>
     `;
     gridEl.appendChild(card);
   });
 
   updateResultsCount(rows.length);
-  revealCardsOnScroll(); // initial reveal pass
+  revealCardsOnScroll();
 }
 
 /* Results count text */
@@ -289,18 +293,10 @@ function populateStates() {
 
 /* ====== SCROLL REVEAL FOR CARDS ====== */
 function revealCardsOnScroll() {
-  const cards = document.querySelectorAll('.college-card');
-  const trigger = window.innerHeight * 0.85;
-  cards.forEach(card => {
-    const rect = card.getBoundingClientRect();
-    if (rect.top < trigger && rect.bottom > 0) {
-      card.classList.add('visible');
-    } else {
-      card.classList.remove('visible');
-    }
-  });
+  if (window.observeAnimatedElements) {
+    window.observeAnimatedElements();
+  }
 }
-window.addEventListener('scroll', revealCardsOnScroll);
 
 /* ====== RESET ====== */
 function resetFilters() {
@@ -324,20 +320,6 @@ if (backBtn) {
   backBtn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
   toggleBackBtn();
 }
-
-/* ====== NAV GLASSMORPHISM SCROLL TOGGLE ====== */
-const mainNav = document.querySelector('nav');
-function updateNavGlass() {
-  if (!mainNav) return;
-  if (window.scrollY > 10) {
-    mainNav.classList.add('scrolled');
-  } else {
-    mainNav.classList.remove('scrolled');
-  }
-}
-window.addEventListener('scroll', updateNavGlass);
-window.addEventListener('load', updateNavGlass);
-updateNavGlass();
 
 /* ====== INIT ====== */
 document.addEventListener('DOMContentLoaded', () => {
