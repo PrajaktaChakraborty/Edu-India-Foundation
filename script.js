@@ -27,6 +27,7 @@ function updateNavShadow() {
   }
 }
 window.addEventListener('scroll', updateNavShadow);
+window.addEventListener('load', updateNavShadow);
 updateNavShadow();
 
 /* ===============================

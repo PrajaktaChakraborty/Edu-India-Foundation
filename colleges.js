@@ -325,6 +325,20 @@ if (backBtn) {
   toggleBackBtn();
 }
 
+/* ====== NAV GLASSMORPHISM SCROLL TOGGLE ====== */
+const mainNav = document.querySelector('nav');
+function updateNavGlass() {
+  if (!mainNav) return;
+  if (window.scrollY > 10) {
+    mainNav.classList.add('scrolled');
+  } else {
+    mainNav.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', updateNavGlass);
+window.addEventListener('load', updateNavGlass);
+updateNavGlass();
+
 /* ====== INIT ====== */
 document.addEventListener('DOMContentLoaded', () => {
   populateStates();

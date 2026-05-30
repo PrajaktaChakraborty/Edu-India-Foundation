@@ -28,3 +28,17 @@ function revealOnScroll() {
 }
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll();
+
+// Navigation scrolled capsule state toggle
+const mainNav = document.querySelector('nav');
+function updateNavShadow() {
+  if (!mainNav) return;
+  if (window.scrollY > 10) {
+    mainNav.classList.add('scrolled');
+  } else {
+    mainNav.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', updateNavShadow);
+window.addEventListener('load', updateNavShadow);
+updateNavShadow();
